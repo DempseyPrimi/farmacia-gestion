@@ -65,13 +65,13 @@ public class MedicamentosView extends Div implements MedicamentosViewModel, Prov
         addClassName("medicamentos-view");
         this.proveedores = new ArrayList<>();
         this.controladorProveedor = new ProveedorInteractorImpl(this);
+        this.controladorProveedor.consultarProveedores();
         this.controladorMedicamento = new MedicamentoInteractorImpl(this);
         SplitLayout splitLayout = new SplitLayout();
         splitLayout.setOrientation(SplitLayout.Orientation.VERTICAL);
         createFormLayout(splitLayout);
         createGridLayout(splitLayout);
         add(createTitle());
-        this.controladorProveedor.consultarProveedores();
         this.controladorMedicamento.consultarMedicamentos();
         
 //        add(createFormLayout());
@@ -111,10 +111,10 @@ public class MedicamentosView extends Div implements MedicamentosViewModel, Prov
     	FormLayout formLayout = new FormLayout(); formLayout.addClassName("form-layout");
     	nombre.setPrefixComponent(LineAwesomeIcon.TABLETS_SOLID.create());
     	descripcion.setPrefixComponent(LineAwesomeIcon.INFO_SOLID.create());
-    	proveedor.setPrefixComponent(LumoIcon.USER.create());fechaRegistro.setPrefixComponent(LineAwesomeIcon.CALENDAR_CHECK.create());proveedor.setItems(this.proveedores); proveedor.setItemLabelGenerator(Proveedor::getNombre_prov);  
+    	proveedor.setPrefixComponent(LumoIcon.USER.create()); proveedor.setItems(proveedores); proveedor.setItemLabelGenerator(Proveedor::getNombre_prov);  
     	user.setPrefixComponent(LineAwesomeIcon.USER_CIRCLE_SOLID.create());
-    	fechaRegistro.setValue(LocalDate.now()); fechaRegistro.setReadOnly(true); fechaVencimiento.setPrefixComponent(LineAwesomeIcon.HOURGLASS_END_SOLID.create());
-    	fechaVencimiento.setHelperText("Selecciones o ingrese la fecha de vencimiento"); 
+    	fechaRegistro.setValue(LocalDate.now()); fechaRegistro.setReadOnly(true); fechaRegistro.setPrefixComponent(LineAwesomeIcon.CALENDAR_CHECK.create());
+    	fechaVencimiento.setHelperText("Seleccione o ingrese la fecha de vencimiento"); fechaVencimiento.setPrefixComponent(LineAwesomeIcon.HOURGLASS_END_SOLID.create());
         formLayout.add(nombre, descripcion, proveedor, user, fechaRegistro, fechaVencimiento);
         containerForm.add(formLayout, createButtonLayout());
         splitLayout.addToPrimary(containerForm);
